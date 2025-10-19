@@ -33,36 +33,12 @@
       </ul>
     </section>
 
+    <section id="dati-google">
+      <h2>Dati dal Foglio Google (da CSV)</h2>
+      <div id="table-container">Caricamento tabella...</div>
+    </section>
 
-<h2>Dati dal Foglio Google</h2>
-<div id="table-container">Caricamento in corso...</div>
-
-<h2>Dati dal Foglio Google (da CSV)</h2>
-<div id="table-container">Caricamento tabella...</div>
-
-<script>
-  // Qui metti il link CSV che hai copiato
-  const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4_CU-hS1RLEXHFqxK_RFSK1D6d18nVWZDMr5g97iIMqqDtOG-H_XBgfClTfxtIlRqrgPbhog_CfLy/pub?output=csv';
-
-  function csvToTable(csvText) {
-    const rows = csvText.trim().split('\n').map(row => row.split(','));
-    const table = document.createElement('table');
-    table.border = 1;
-
-    rows.forEach((cols, i) => {
-      const tr = document.createElement('tr');
-      cols.forEach(col => {
-        const cell = i === 0 ? document.createElement('th') : document.createElement('td');
-        cell.textContent = col;
-        tr.appendChild(cell);
-      });
-      table.appendChild(tr);
-    });
-
-    return table;
-  }
-
-      <section id="galleria">
+    <section id="galleria">
       <h2>Galleria Foto</h2>
       <div class="gallery">
         <img src="images/foto1.jpg" alt="Foto 1" />
@@ -76,9 +52,44 @@
     <p>© 2025 DJ Carlo D’Amore</p>
     <p>Seguimi su: <a href="#">Instagram</a> | <a href="#">Facebook</a></p>
   </footer>
+
+  <script>
+    // Link CSV pubblico del Google Sheet
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4_CU-hS1RLEXHFqxK_RFSK1D6d18nVWZDMr5g97iIMqqDtOG-H_XBgfClTfxtIlRqrgPbhog_CfLy/pub?output=csv';
+
+    function csvToTable(csvText) {
+      const rows = csvText.trim().split('\n').map(row => row.split(','));
+      const table = document.createElement('table');
+      table.border = 1;
+
+      rows.forEach((cols, i) => {
+        const tr = document.createElement('tr');
+        cols.forEach(col => {
+          const cell = i === 0 ? document.createElement('th') : document.createElement('td');
+          cell.textContent = col;
+          tr.appendChild(cell);
+        });
+        table.appendChild(tr);
+      });
+
+      return table;
+    }
+
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(csvText => {
+        const table = csvToTable(csvText);
+        const container = document.getElementById('table-container');
+        container.innerHTML = '';
+        container.appendChild(table);
+      })
+      .catch(err => {
+        const container = document.getElementById('table-container');
+        container.textContent = 'Errore nel caricamento della tabella.';
+        console.error(err);
+      });
+  </script>
 </body>
-
 </html>
-
 
 
