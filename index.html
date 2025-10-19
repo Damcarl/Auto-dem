@@ -37,9 +37,45 @@
 <h2>Dati dal Foglio Google</h2>
 <div id="table-container">Caricamento in corso...</div>
 
-<h2>Dati dal Foglio Google</h2>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4_CU-hS1RLEXHFqxK_RFSK1D6d18nVWZDMr5g97iIMqqDtOG-H_XBgfClTfxtIlRqrgPbhog_CfLy/pubhtml?gid=0&single=true"
-        width="100%" height="400" frameborder="0" scrolling="no"></iframe>
+<h2>Dati dal Foglio Google (da CSV)</h2>
+<div id="table-container">Caricamento tabella...</div>
+
+<script>
+  // Qui metti il link CSV che hai copiato
+  const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4_CU-hS1RLEXHFqxK_RFSK1D6d18nVWZDMr5g97iIMqqDtOG-H_XBgfClTfxtIlRqrgPbhog_CfLy/pub?output=csv';
+
+  function csvToTable(csvText) {
+    const rows = csvText.trim().split('\n').map(row => row.split(','));
+    const table = document.createElement('table');
+    table.border = 1;
+
+    rows.forEach((cols, i) => {
+      const tr = document.createElement('tr');
+      cols.forEach(col => {
+        const cell = i === 0 ? document.createElement('th') : document.createElement('td');
+        cell.textContent = col;
+        tr.appendChild(cell);
+      });
+      table.appendChild(tr);
+    });
+
+    return table;
+  }
+
+  fetch(csvUrl)
+    .then(response => response.text())
+    .then(csvText => {
+      const table = csvToTable(csvText);
+      const container = document.getElementById('table-container');
+      container.innerHTML = '';
+      container.appendChild(table);
+    })
+    .catch(err => {
+      document.getElementById('table-container').textContent = 'Errore nel caricamento della tabella.';
+      console.error(err);
+    });
+</script>
+
 
     fetch(sheetURL)
     .then(res => res.text())
@@ -94,4 +130,5 @@
 </body>
 
 </html>
+
 
