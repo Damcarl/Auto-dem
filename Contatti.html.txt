@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contatti – DJ Carlo D’Amore</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+  <header>
+    <h1>Contatti</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="bio.html">Biografia</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Contattami</h2>
+      <p>Puoi scrivermi via email: <a href="mailto:tuoindirizzo@mail.com">tuoindirizzo@mail.com</a></p>
+      <p>Oppure seguimi sui social: <a href="#">Instagram</a>, <a href="#">Facebook</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 DJ Carlo D’Amore</p>
+    <p>Seguimi su: <a href="#">Instagram</a> | <a href="#">Facebook</a></p>
+  </footer>
+</body>
+</html>

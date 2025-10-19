@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Biografia – DJ Carlo D’Amore</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+  <header>
+    <h1>Biografia</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="bio.html">Biografia</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Chi sono</h2>
+      <p>Qui puoi inserire il testo della tua biografia: il percorso, le esperienze, le passioni.</p>
+    </section>
+
+    <section>
+      <h2>Cosa faccio</h2>
+      <p>DJ, produzioni, performance, generi musicali, ecc.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 DJ Carlo D’Amore</p>
+    <p>Seguimi su: <a href="#">Instagram</a> | <a href="#">Facebook</a></p>
+  </footer>
+</body>
+</html>
