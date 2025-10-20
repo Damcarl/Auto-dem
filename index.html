@@ -14,15 +14,15 @@
   </div>
 
   <script>
-    const publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1FZMVNnigcj3Wq7zHrlVmqkAgVDe0H-EP_9o0g4Wr314/pubhtml';
+    const publicSpreadsheetId = '1FZMVNnigcj3Wq7zHrlVmqkAgVDe0H-EP_9o0g4Wr314';
 
     function init() {
       Tabletop.init({
-        key: publicSpreadsheetUrl,
+        key: publicSpreadsheetId,
         callback: showInfo,
         simpleSheet: true
       });
-    }
+      }
 
     function showInfo(data, tabletop) {
       let table = '<table><thead><tr>';
@@ -45,6 +45,7 @@
   </script>
 </body>
 </html>
+
 
 
 
