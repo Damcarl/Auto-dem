@@ -1,95 +1,50 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <title>DJ Carlo D’Amore</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Dati da Google Sheet</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/tabletop@1.5.1/tabletop.js"></script>
 </head>
 <body>
-  <header>
-    <h1>DJ</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="bio.html">Biografia</a></li>
-        <li><a href="contatti.html">Contatti</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section id="intro">
-      <h2>Benvenuto</h2>
-      <p>Benvenuti sul sito ufficiale di DJ. Qui potrai trovare informazioni, gallerie, eventi e contatti.</p>
-    </section>
-
-    <section id="eventi">
-      <h2>Eventi in programma</h2>
-      <ul>
-        <li>Data 1 – Luogo 1</li>
-        <li>Data 2 – Luogo 2</li>
-        <li>Data 3 – Luogo 3</li>
-      </ul>
-    </section>
-
-    <section id="dati-google">
-      <h2>Dati dal Foglio Google (da CSV)</h2>
-      <div id="table-container">Caricamento tabella...</div>
-    </section>
-
-    <section id="galleria">
-      <h2>Galleria Foto</h2>
-      <div class="gallery">
-        <img src="images/foto1.jpg" alt="Foto 1" />
-        <img src="images/foto2.jpg" alt="Foto 2" />
-        <!-- aggiungi altre immagini -->
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 DJ Carlo D’Amore</p>
-    <p>Seguimi su: <a href="#">Instagram</a> | <a href="#">Facebook</a></p>
-  </footer>
+  <div class="container">
+    <h1>📊 Dati da Google Sheets</h1>
+    <p>Questa tabella mostra i dati aggiornati in tempo reale dal foglio Google.</p>
+    <div id="table-container">Caricamento dati...</div>
+  </div>
 
   <script>
-    // Link CSV pubblico del Google Sheet
-    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4_CU-hS1RLEXHFqxK_RFSK1D6d18nVWZDMr5g97iIMqqDtOG-H_XBgfClTfxtIlRqrgPbhog_CfLy/pub?output=csv';
+    const publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1FZMVNnigcj3Wq7zHrlVmqkAgVDe0H-EP_9o0g4Wr314/pubhtml';
 
-    function csvToTable(csvText) {
-      const rows = csvText.trim().split('\n').map(row => row.split(','));
-      const table = document.createElement('table');
-      table.border = 1;
-
-      rows.forEach((cols, i) => {
-        const tr = document.createElement('tr');
-        cols.forEach(col => {
-          const cell = i === 0 ? document.createElement('th') : document.createElement('td');
-          cell.textContent = col;
-          tr.appendChild(cell);
-        });
-        table.appendChild(tr);
+    function init() {
+      Tabletop.init({
+        key: publicSpreadsheetUrl,
+        callback: showInfo,
+        simpleSheet: true
       });
-
-      return table;
     }
 
-    fetch(csvUrl)
-      .then(response => response.text())
-      .then(csvText => {
-        const table = csvToTable(csvText);
-        const container = document.getElementById('table-container');
-        container.innerHTML = '';
-        container.appendChild(table);
-      })
-      .catch(err => {
-        const container = document.getElementById('table-container');
-        container.textContent = 'Errore nel caricamento della tabella.';
-        console.error(err);
+    function showInfo(data, tabletop) {
+      let table = '<table><thead><tr>';
+      for (let key in data[0]) {
+        table += `<th>${key}</th>`;
+      }
+      table += '</tr></thead><tbody>';
+      data.forEach(row => {
+        table += '<tr>';
+        for (let key in row) {
+          table += `<td>${row[key]}</td>`;
+        }
+        table += '</tr>';
       });
+      table += '</tbody></table>';
+      document.getElementById('table-container').innerHTML = table;
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
+
 
 
