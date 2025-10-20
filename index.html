@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dati da Google Sheet</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <script src="https://unpkg.com/tabletop@1.5.1/tabletop.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>📊 Dati da Google Sheets</h1>
     <p>Questa tabella mostra i dati aggiornati in tempo reale dal foglio Google.</p>
-    <div id="table-container">Caricamento dati...</div>
+    <div id="table-container">Caricamento dati…</div>
   </div>
 
   <script>
+    // Usa solo l’ID del foglio
     const publicSpreadsheetId = '2PACX-1vQ4_CU-hS1RLEXHFqxK_RFSK1D6d18nVWZDMr5g97iIMqqDtOG-H_XBgfClTfxtIlRqrgPbhog_CfLy';
 
     function init() {
@@ -22,14 +24,22 @@
         callback: showInfo,
         simpleSheet: true
       });
-      }
+    }
 
     function showInfo(data, tabletop) {
+      // ⚠ Se data è undefined o vuoto, mostra errore
+      if (!data || data.length === 0) {
+        document.getElementById('table-container').innerText = "Nessun dato trovato oppure il foglio non è pubblicato correttamente.";
+        return;
+      }
+
       let table = '<table><thead><tr>';
+      // intestazioni
       for (let key in data[0]) {
         table += `<th>${key}</th>`;
       }
       table += '</tr></thead><tbody>';
+      // righe
       data.forEach(row => {
         table += '<tr>';
         for (let key in row) {
@@ -38,6 +48,7 @@
         table += '</tr>';
       });
       table += '</tbody></table>';
+
       document.getElementById('table-container').innerHTML = table;
     }
 
@@ -45,7 +56,6 @@
   </script>
 </body>
 </html>
-
 
 
 
